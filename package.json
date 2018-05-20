@@ -1,0 +1,29 @@
+{
+  "name": "kettlecat",
+  "version": "1.0.0",
+  "description": "An utility to store boilerplates and quickly retrieve them",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carglass/kettlecat.git"
+  },
+  "keywords": [
+    "boilerplate",
+    "CRUD",
+    "cats"
+  ],
+  "author": "M.Story, R.Plynius, R.Dreessen, M.Burlat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carglass/kettlecat/issues"
+  },
+  "homepage": "https://github.com/Carglass/kettlecat#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.8"
+  }
+}
