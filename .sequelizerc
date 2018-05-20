@@ -1,0 +1,7 @@
+const path = require('path');
+// configuring dotenv to retrieve our db account variables
+require("dotenv").config();
+
+module.exports = {
+  'config': path.resolve('config', 'config.js')
+}
