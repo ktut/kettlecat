@@ -9,17 +9,25 @@ var db = require("../models");
 
 // Routes =============================================================
 module.exports = {
+  // due to its dependence to db connection, this function is tested in api.int.test.js
+  findBoilerplate: (tags, searchInput) => {
+    // TODO complete implementation
+    return db.Boilerplate.findAll({});
+  },
+  // due to its dependence to db connection, this function is tested in api.int.test.js
   createBoilerplate: (title, content) => {
     return db.Boilerplate.create({
       title: title,
       content: content
     });
   },
+  // this function will only be tested through UI testing
   routes: function(app) {
     // GET route for getting all of the boilerplates
     app.get("/api/boilerplates", function(req, res) {
       // findAll returns all entries for a table when used with no options
-      db.Boilerplate.findAll({}).then(function(bp) {
+      // TODO complete implementation to get tags and searchInput from req.body or req.params
+      this.findBoilerplate().then(function(bp) {
         // We have access to the boilerplates as an argument inside of the callback function
         res.json(bp);
       });
