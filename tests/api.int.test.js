@@ -1,6 +1,6 @@
+// this line really really needs to be the first
 require("dotenv").config();
 const api = require("./../routes/api-routes");
-const db = require("./../models");
 
 test("the created boilerplate is returned once stored", () => {
   expect.assertions(1);
