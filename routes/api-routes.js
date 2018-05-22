@@ -16,11 +16,20 @@ module.exports = {
   },
   // due to its dependence to db connection, this function is tested in api.int.test.js
   createBoilerplate: (title, content, tags) => {
-    // TODO add tags mngmt
-    return db.Boilerplate.create({
-      title: title,
-      content: content
-    });
+    // FIXME tags management makes the test fail, pb of asynchronism
+    if (tags) {
+      db.Boilerplate.create({
+        title: title,
+        content: content
+      }).then(boilerplate => {
+        return boilerplate.addTags(tags);
+      });
+    } else {
+      return db.Boilerplate.create({
+        title: title,
+        content: content
+      });
+    }
   },
   // due to its dependence to db connection, this function is tested in api.int.test.js
   createTag: (title, color) => {
@@ -46,9 +55,11 @@ module.exports = {
       // create takes an argument of an object describing the item we want to insert
       // into our table. In this case we just we pass in an object with a text and
       // complete property
-      this.createBoilerplate(req.body.title, req.body.content).then(function(
-        bp
-      ) {
+      this.createBoilerplate(
+        req.body.title,
+        req.body.content,
+        req.body.tags
+      ).then(function(bp) {
         // We have access to the new boilerplate as an argument inside of the callback function
         res.json(bp);
       });
