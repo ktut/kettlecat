@@ -20,14 +20,16 @@ test("the created boilerplate is returned once stored", () => {
 // FIXME test failing at the moment, pb of asynchronism?
 test("creating a boilerplate with tags eventually returns the matching table", () => {
   expect.assertions(1);
-  return api.createBoilerplate("test title", "test content", [1]).then(data => {
-    expect(data).toEqual(
-      expect.objectContaining({
-        title: "test title",
-        content: "test content"
-      })
-    );
-  });
+  return api
+    .createBoilerplate("test title", "test content", [1, 2])
+    .then(data => {
+      expect(data).toEqual(
+        expect.objectContaining({
+          title: "test title",
+          content: "test content"
+        })
+      );
+    });
 });
 
 test("an empty search returns every boilerplate", () => {

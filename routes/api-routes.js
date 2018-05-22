@@ -22,7 +22,7 @@ module.exports = {
         title: title,
         content: content
       }).then(boilerplate => {
-        return boilerplate.addTags(tags);
+        return boilerplate.addTag(tags);
       });
     } else {
       return db.Boilerplate.create({
