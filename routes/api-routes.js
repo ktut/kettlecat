@@ -15,10 +15,18 @@ module.exports = {
     return db.Boilerplate.findAll({});
   },
   // due to its dependence to db connection, this function is tested in api.int.test.js
-  createBoilerplate: (title, content) => {
+  createBoilerplate: (title, content, tags) => {
+    // TODO add tags mngmt
     return db.Boilerplate.create({
       title: title,
       content: content
+    });
+  },
+  // due to its dependence to db connection, this function is tested in api.int.test.js
+  createTag: (title, color) => {
+    return db.Tag.create({
+      title: title,
+      color: color
     });
   },
   // this function will only be tested through UI testing
@@ -43,6 +51,17 @@ module.exports = {
       ) {
         // We have access to the new boilerplate as an argument inside of the callback function
         res.json(bp);
+      });
+    });
+
+    //POST route for saving a new Tag
+    app.post("/api/tags", function(req, res) {
+      // create takes an argument of an object describing the item we want to insert
+      // into our table. In this case we just we pass in an object with a text and
+      // complete property
+      this.createTag(req.body.title, req.body.color).then(function(tag) {
+        // We have access to the new tag as an argument inside of the callback function
+        res.json(tag);
       });
     });
   }

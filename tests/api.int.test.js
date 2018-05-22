@@ -35,3 +35,5 @@ test(
 test(
   "a search with a searchInput shall return all elements that match the searchInput (title or content)"
 );
+
+// TODO tests for createTag
