@@ -1,15 +1,15 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  var Boilerplate = sequelize.define(
-    "Boilerplate",
+  var Tag = sequelize.define(
+    "Tag",
     {
       title: DataTypes.STRING,
-      content: DataTypes.STRING
+      color: DataTypes.STRING
     },
     {}
   );
-  Boilerplate.associate = function(models) {
+  Tag.associate = function(models) {
     // associations can be defined here
   };
-  return Boilerplate;
+  return Tag;
 };
