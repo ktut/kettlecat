@@ -4,6 +4,7 @@ module.exports = {
     password: process.env.DB_DVPT_PASS,
     database: process.env.DB_DVPT_DB,
     host: process.env.DB_DVPT_HOST,
+    port: process.env.DB_DVPT_PORT,
     dialect: "mysql"
   },
   test: {
@@ -11,6 +12,7 @@ module.exports = {
     password: process.env.DB_DVPT_PASS,
     database: process.env.DB_DVPT_DB,
     host: process.env.DB_DVPT_HOST,
+    port: process.env.DB_DVPT_PORT,
     dialect: "mysql"
   },
   production: {
