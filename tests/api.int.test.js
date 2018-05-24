@@ -42,6 +42,8 @@ test("the created boilerplate is returned once stored", () => {
 //     });
 // });
 
+//test 2
+
 test("an empty search returns every boilerplate", () => {
   db.Boilerplate.findAll({}).then(expectedData => {
     expect.assertions(1);
