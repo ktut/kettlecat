@@ -25,6 +25,8 @@ test("the created boilerplate is returned once stored", () => {
   });
 });
 
+// just a comment
+
 // FIXME test failing at the moment, pb of asynchronism?
 // => async pb confirmed, it would take to mock or split the calls,
 // however, we would just test sequelize, as there is no custom code
