@@ -1,3 +1,26 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: #333;
+}
+
+header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+header img.logo {
+    height: 100%;
+    padding: 10px;
+}
+
+header h1.title {
+    font-size: 4rem;
+    font-weight: 400;
+    font-family: 'Exo', sans-serif;
+    color: white;
+    text-transform: uppercase;
 }
