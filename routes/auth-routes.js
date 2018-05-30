@@ -29,7 +29,7 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+      callbackURL: "http://127.0.0.1:8080/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
@@ -64,8 +64,8 @@ module.exports = app => {
   // persistent login sessions (recommended).
   app.use(passport.initialize());
   app.use(passport.session());
-  app.get("/", function(req, res) {
-    res.render("index", { user: req.user });
+  app.get("/user", function(req, res) {
+    console.log(req.user);
   });
 
   app.get("/account", ensureAuthenticated, function(req, res) {
@@ -99,6 +99,7 @@ module.exports = app => {
     "/auth/github/callback",
     passport.authenticate("github", { failureRedirect: "/login" }),
     function(req, res) {
+      console.log(req.user);
       res.redirect("/");
     }
   );
