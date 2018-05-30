@@ -10,7 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/Carglass/kettlecat.git"
   },
-  "keywords": ["boilerplate", "CRUD", "cats"],
+  "keywords": [
+    "boilerplate",
+    "CRUD",
+    "cats"
+  ],
   "author": "M.Story, R.Plynius, R.Dreessen, M.Burlat",
   "license": "ISC",
   "bugs": {
@@ -22,6 +26,8 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "mysql2": "^1.5.3",
+    "passport": "^0.4.0",
+    "passport-github2": "^0.1.11",
     "sequelize": "^4.37.8",
     "sequelize-cli": "^4.0.0"
   },
