@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     "Boilerplate",
     {
       title: DataTypes.STRING,
+      description: DataTypes.STRING,
+      lang: DataTypes.STRING,
       content: DataTypes.STRING
     },
     {}
