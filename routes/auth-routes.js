@@ -1,6 +1,7 @@
 var passport = require("passport");
 var GitHubStrategy = require("passport-github2").Strategy;
 var session = require("express-session");
+var db = require("../models");
 
 var GITHUB_CLIENT_ID = "5fbaf76f0a739df8245f";
 var GITHUB_CLIENT_SECRET = "3b726ea7b86230e1b5bdc0c95c37a5119e2dbed2";
@@ -13,11 +14,17 @@ var GITHUB_CLIENT_SECRET = "3b726ea7b86230e1b5bdc0c95c37a5119e2dbed2";
 //   have a database of user records, the complete GitHub profile is serialized
 //   and deserialized.
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+passport.deserializeUser(function(id, done) {
+  db.User.find({
+    where: {
+      id: id
+    }
+  }).then(user => {
+    done(null, user);
+  });
 });
 
 // Use the GitHubStrategy within Passport.
@@ -33,13 +40,22 @@ passport.use(
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
-      process.nextTick(function() {
-        // To keep the example simple, the user's GitHub profile is returned to
-        // represent the logged-in user.  In a typical application, you would want
-        // to associate the GitHub account with a user record in your database,
-        // and return that user instead.
-        return done(null, profile);
+      db.User.findOrCreate({
+        where: {
+          userID: profile.id,
+          displayName: profile.displayName
+        }
+      }).spread((user, created) => {
+        return done(null, user);
+        console.log(created);
       });
+      // process.nextTick(function() {
+      //   // To keep the example simple, the user's GitHub profile is returned to
+      //   // represent the logged-in user.  In a typical application, you would want
+      //   // to associate the GitHub account with a user record in your database,
+      //   // and return that user instead.
+      //   return done(null, profile);
+      // });
     }
   )
 );
