@@ -25,26 +25,42 @@ test("the created boilerplate is returned once stored", () => {
   });
 });
 
+//delete test
+test("the deleted boilerplate is returned", () => {
+  expect.assertions(1);
+  let id;
+  console.log(id);
+  api.createBoilerplate("to delete", "to delete").then(boilerplate => {
+    return new Promise((resolve,reject) => {
+      resolve(boilerplate.id)
+    });
+  }).then((id) => {
+  return api.deleteBoilerPlate(id).then(data => {
+    expect(data).toBe(
+      id
+    );
+  });});
+});
+
 // just a comment
 
 // FIXME test failing at the moment, pb of asynchronism?
 // => async pb confirmed, it would take to mock or split the calls,
 // however, we would just test sequelize, as there is no custom code
-// test("creating a boilerplate with tags eventually returns the matching table", () => {
-//   expect.assertions(1);
-//   return api
-//     .createBoilerplate("test title", "test content", [1, 2])
-//     .then(data => {
-//       expect(data).toEqual(
-//         expect.objectContaining({
-//           title: "test title",
-//           content: "test content"
-//         })
-//       );
-//     });
+test("creating a boilerplate with tags eventually returns the matching table", () => {
+  expect.assertions(1);
+  return api
+    .createBoilerplate("test title", "test content", [1, 2])
+    .then(data => {
+      expect(data).toEqual(
+        expect.objectContaining({
+          title: "test title",
+          content: "test content"
+        })
+      );
+    });
 
-// just a test
-// });
+});
 
 //test 2
 
@@ -56,6 +72,8 @@ test("an empty search returns every boilerplate", () => {
     });
   });
 });
+
+
 
 test("a search with one tag returns all elements having this tag");
 
