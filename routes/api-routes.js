@@ -24,6 +24,22 @@ const routing = {
       return bpOne;
     });
   },
+  testcreateBoilerPlateWithUser: (
+    title,
+    description,
+    lang,
+    content,
+    tags,
+    userId
+  ) => {
+    return db.Boilerplate.create({
+      title: title,
+      content: content,
+      description: description,
+      lang: lang,
+      UserId: userId
+    });
+  },
   // due to its dependence to db connection, this function is tested in api.int.test.js
   createBoilerplate: (title, description, lang, content, tags, userId) => {
     // FIXME tags management makes the test fail, pb of asynchronism
@@ -103,6 +119,7 @@ const routing = {
   routes: function(app) {
     // GET route for getting all of the boilerplates
     app.get("/api/boilerplates", function(req, res) {
+      console.log("the user id is" + req.session.passport.user);
       // findAll returns all entries for a table when used with no options
       // TODO complete implementation to get tags and searchInput from req.body or req.params
       routing.findBoilerplate().then(function(bp) {
@@ -117,6 +134,18 @@ const routing = {
       });
     });
     // POST route for saving a new boilerplate
+    // app.post("/api/boilerplates", function(req, res) {
+    //   // create takes an argument of an object describing the item we want to insert
+    //   // into our table. In this case we just we pass in an object with a text and
+    //   // complete property
+    //   routing
+    //     .createBoilerplate(req.body.title, req.body.content, req.body.tags)
+    //     .then(function(bp) {
+    //       // We have access to the new boilerplate as an argument inside of the callback function
+    //       res.json(bp);
+    //     });
+    // });
+
     app.post("/api/boilerplates", function(req, res) {
       // create takes an argument of an object describing the item we want to insert
       // into our table. In this case we just we pass in an object with a text and
