@@ -92,8 +92,10 @@ const routing = {
   },
 
   updateTag: (id, tagContent) => {
-    return db.Tag.update(tagContents, {
-      id: id
+    return db.Tag.update(tagContent, {
+      where: {
+        id: id
+      }
     }).then(tagUpdate => {
       return tagUpdate;
     });
@@ -123,7 +125,7 @@ const routing = {
       // complete property
       console.log(req.body);
       routing
-        .createBoilerplate(req.body.title, req.body.description, req.body.lang, req.body.content, req.body.tags, req.session.passport.user)
+        .createBoilerplate(req.body.title, req.body.description, req.body.lang, req.body.content, req.body.tags, 1)
         .then(function(bp) {
           // We have access to the new boilerplate as an argument inside of the callback function
           res.json(bp);
@@ -161,16 +163,17 @@ const routing = {
           res.json(allTags);
         });
     });
+
     //DELETE route for a Tag by ID
-    app.delete("api/tags/:id", function(req, res) {
+    app.delete("/api/tags/:id", function(req, res) {
       routing.deleteTag(req.params.id).then(tagreturn => {
         res.json(tagreturn);
       });
     });
 
-    app.put("api/tags/id:", function(req, res) {
+    app.put("/api/tags/:id", function(req, res) {
       routing.updateTag(req.params.id, req.body).then(tagUpdatePut => {
-        req.json(tagUpdatePut);
+        res.json(tagUpdatePut);
       });
     });
   }

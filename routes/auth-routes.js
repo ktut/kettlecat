@@ -40,6 +40,7 @@ passport.use(
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
+      console.log(accessToken);
       db.User.findOrCreate({
         where: {
           userID: profile.id,
