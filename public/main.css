@@ -22,10 +22,35 @@ header .filter {
     padding: 15px;
 }
 
+/* logo layout and animation */
+
 header .logo {
     display: flex;
     align-items: center;
 }
+
+header .logo img.move {
+    animation-name: pour;
+    animation-duration: 1.5s; 
+    animation-timing-function: ease-out; 
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-fill-mode: none;
+}
+
+@keyframes pour {
+    0% {
+        opacity: 0;
+        transform: rotate(0);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(0);
+    }
+  }
 
 header .logo img {
     height: 52px;
@@ -33,13 +58,49 @@ header .logo img {
 }
 
 header .logo h1 {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: url("./assets/smoke.png");
+    background-size: cover;
+    background-position: right;
+    background-size: 600px;
+
     font-size: 1.8rem;
     font-weight: 700;
     letter-spacing: 6px;
     font-family: 'IBM Plex Sans', sans-serif;
-    color: white;
     text-transform: uppercase;
 }
+
+header .logo h1.move {
+    animation-name: smokeIn;
+    animation-duration: 5s; 
+    animation-timing-function: ease; 
+    /* animation-delay: 0.5s; */
+    animation-fill-mode: forwards;
+}
+
+@keyframes smokeIn {
+    0% {
+        opacity: .25;
+        background-position: right;
+    }
+    100% {
+        opacity: 1;
+        background-position: left;
+    }
+}
+
+/* disable anim for lame browsers */
+@supports not ((-webkit-background-clip: text) or (background-clip: text;)) {
+    header .logo h1 {
+        background: none !important;
+        color: white !important;
+    }
+}
+
+/* more header stuff */
 
 header .filter {
     flex-grow: 1;
@@ -114,7 +175,7 @@ div.card {
     margin: 10px;
     
     font-family: 'IBM Plex Sans', sans-serif !important;
-    color: #eee;
+    color: #ddd;
     background: #555;
     padding: 25px 15px;
     border-radius: 5px;
@@ -203,7 +264,6 @@ div.card > p.author:before {
 }
 
 div.card > p.desc {
-    font-weight: 300;
     line-height: 130%;
 }
 
@@ -236,6 +296,10 @@ div.card > button {
 div.card.active > p.desc,
 div.card.active > button {
     display: block;
+}
+
+div.card.active > .content {
+    font-size: 1rem;
 }
 
 div.card.active > button {
