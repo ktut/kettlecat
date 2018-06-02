@@ -148,6 +148,7 @@ div.card.active h1 {
         justify-items: center;
 
         grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+        grid-auto-flow: dense;
         grid-gap: 20px;
     }
 
@@ -221,18 +222,24 @@ div.card > .content {
     padding: 15px;
     margin-top: 15px;
     display: inline-block;
-    border: 1px solid white;
+    background: #111;
+    color: #eee;
     min-height: 100px;
     overflow-y: scroll;
 }
 
+div.card > p.desc,
 div.card > button {
     display: none;
 }
 
+div.card.active > p.desc,
+div.card.active > button {
+    display: block;
+}
+
 div.card.active > button {
     align-self: flex-start;
-    display: block;
     margin-top: 15px;
     padding: 7px 15px;
     background: white;

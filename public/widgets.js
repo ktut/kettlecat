@@ -1,5 +1,21 @@
-// document ready = get all posts
-// ajax.getPosts
+$( document ).ready(function() {
+
+    // AJAX: get 20 posts
+
+    // set tag colors based on content
+    // • backend = blue
+    // • frontend = red
+    $('div.card p.tag').each(function( index ) {
+        if ($(this).text().trim() == 'backend') {
+            $(this).css( "background", "blue" )
+        } else if ($(this).text().trim() == 'frontend') {
+            $(this).css( "background", "red" )
+        } else {
+            $(this).css( "background", "grey" )
+        }
+    });
+
+});
 
 // make cards active when selected
 $( "div.card" ).click(function() {
@@ -9,35 +25,24 @@ $( "div.card" ).click(function() {
     }
 });
 
-// on load, do the following:
-// 1. get 20 posts, THEN
-// 2. set tag colors based on content
-// • backend = blue
-// • frontend = red
-// 3. when typing in filter box, execute sequelize query and get posts again
-// 4. when clicking copy button, copy code
+ // when typing in filter box, every 500ms, update posts
+let filterResults = function() {
+    console.log($(".js-filter").val());
+    // AJAX: get posts using above string as query
+}
+$('.js-filter').keyup(_.debounce(filterResults , 500));
 
-$( document ).ready(function() {
+// TO FINISH: when clicking copy button, copy code
+// use:
+// https://clipboardjs.com/
 
-    // get all posts
+$( ".js-copy-button" ).click(function() {
+    var copyText = $(this).siblings("textarea.content");
+    copyText.focus();
+    // var copiedText = copyText["0"].innerText;
+    copyText.select();
+    document.execCommand("copy");
 
-    $('div.card p.tag').each(function( index ) {
-        if ($(this).text() == 'backend') {
-            $(this).css( "background", "blue" )
-        } else if ($(this).text() == 'frontend') {
-            $(this).css( "background", "red" )
-        } else {
-            $(this).css( "background", "grey" )
-        }
-    });
-
-    // when typing in filter box, execute sequelize query and get posts again
-    
-    let filterWhileTyping = function() {
-        console.log($(".js-filter").text());
-    }
-
-    $('.js-filter').keyup(_.debounce(filterWhileTyping , 300));
-
-    // when clicking copy button, copy code
+    // console.log(copyText["0"].innerText);
 });
+

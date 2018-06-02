@@ -36,7 +36,7 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.AUTH_CALLBACK_URL
+      callbackURL: "http://127.0.0.1:8080/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
