@@ -1,6 +1,8 @@
 $( document ).ready(function() {
+    $(".animate").addClass("move");
 
-    // AJAX: get 20 posts
+    // AJAX goes here: get 20 posts
+    // getAllPosts();
 
     // set tag colors based on content
     // • backend = blue
@@ -14,7 +16,6 @@ $( document ).ready(function() {
             $(this).css( "background", "grey" )
         }
     });
-
 });
 
 // make cards active when selected
@@ -32,17 +33,11 @@ let filterResults = function() {
 }
 $('.js-filter').keyup(_.debounce(filterResults , 500));
 
-// TO FINISH: when clicking copy button, copy code
-// use:
-// https://clipboardjs.com/
-
+// 
 $( ".js-copy-button" ).click(function() {
     var copyText = $(this).siblings("textarea.content");
     copyText.focus();
-    // var copiedText = copyText["0"].innerText;
     copyText.select();
     document.execCommand("copy");
-
-    // console.log(copyText["0"].innerText);
 });
 
