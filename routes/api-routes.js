@@ -24,22 +24,6 @@ const routing = {
       return bpOne;
     });
   },
-  testcreateBoilerPlateWithUser: (
-    title,
-    description,
-    lang,
-    content,
-    tags,
-    userId
-  ) => {
-    return db.Boilerplate.create({
-      title: title,
-      content: content,
-      description: description,
-      lang: lang,
-      UserId: userId
-    });
-  },
   // due to its dependence to db connection, this function is tested in api.int.test.js
   createBoilerplate: (title, description, lang, content, tags, userId) => {
     // FIXME tags management makes the test fail, pb of asynchronism
@@ -50,7 +34,8 @@ const routing = {
         lang: lang,
         content: content,
         tags: tags,
-        UserId: userId
+        UserId: userId,
+        votes: 0
       }).then(boilerplate => {
         return boilerplate.addTag(tags);
       });
@@ -60,7 +45,8 @@ const routing = {
         description: description,
         lang: lang,
         content: content,
-        UserId: userId
+        UserId: userId,
+        votes: 0
       });
     }
   },
@@ -154,7 +140,14 @@ const routing = {
       // complete property
       console.log(req.body);
       routing
-        .createBoilerplate(req.body.title, req.body.description, req.body.lang, req.body.content, req.body.tags, 1)
+        .createBoilerplate(
+          req.body.title,
+          req.body.description,
+          req.body.lang,
+          req.body.content,
+          req.body.tags,
+          1
+        )
         .then(function(bp) {
           // We have access to the new boilerplate as an argument inside of the callback function
           res.json(bp);
@@ -204,6 +197,14 @@ const routing = {
       routing.updateTag(req.params.id, req.body).then(tagUpdatePut => {
         res.json(tagUpdatePut);
       });
+    });
+
+    app.put("/api/votes/:id/:votes", function(req, res) {
+      routing
+        .updateBoilerPlate(req.params.id, { votes: req.params.votes })
+        .then(bpUpdatePut => {
+          res.json(bpUpdatePut);
+        });
     });
   }
 };
