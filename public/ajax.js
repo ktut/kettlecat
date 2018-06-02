@@ -1,12 +1,31 @@
-// $(document).ready(function() {
-//   $.ajax({
-//     url: queryURL, ///api/boilerplates?
-//     method: "GET"
-//   }).then(function(data) {
-//     $.post(".card", newcard);
-//     console.log("add.html", data);
-//   });
-// });
+
+$(document).ready(function() {
+  // $.ajax({
+  //   url: queryURL, ///api/boilerplates?
+  //   method: "GET"
+  // }).then(function(data) {
+  //   $.post(".card", newcard);
+  //   console.log("add.html", data);
+  // });
+
+  $.get("./api/boilerplates", data => {
+    console.log(data);
+  });
+
+  $.post(
+    "./api/boilerplates",
+    {
+      title: "test title",
+      description: "a description",
+      lang: "a language",
+      content: "some content",
+      tags: []
+    },
+    () => {
+      console.log("it worked");
+    }
+  );
+});
 //     $(".tag").append($(p));
 //     $(".title").append($(p));
 //     $(".author").append($(p));
