@@ -25,7 +25,7 @@ const routing = {
     });
   },
   // due to its dependence to db connection, this function is tested in api.int.test.js
-  createBoilerplate: (title, description, lang, content, tags) => {
+  createBoilerplate: (title, description, lang, content, tags, userId) => {
     // FIXME tags management makes the test fail, pb of asynchronism
     if (tags) {
       return db.Boilerplate.create({
@@ -33,7 +33,8 @@ const routing = {
         description: description,
         lang: lang,
         content: content,
-        tags: tags
+        tags: tags,
+        UserId: userId
       }).then(boilerplate => {
         return boilerplate.addTag(tags);
       });
@@ -42,7 +43,8 @@ const routing = {
         title: title,
         description: description,
         lang: lang,
-        content: content
+        content: content,
+        UserId: userId
       });
     }
   },
@@ -121,7 +123,7 @@ const routing = {
       // complete property
       console.log(req.body);
       routing
-        .createBoilerplate(req.body.title, req.body.description, req.body.lang, req.body.content, req.body.tags)
+        .createBoilerplate(req.body.title, req.body.description, req.body.lang, req.body.content, req.body.tags, req.session.passport.user)
         .then(function(bp) {
           // We have access to the new boilerplate as an argument inside of the callback function
           res.json(bp);
