@@ -7,6 +7,24 @@ body {
     background: #333;
 }
 
+
+
+button {
+    align-self: flex-start;
+    margin-top: 15px;
+    padding: 7px 15px;
+    background: white;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    border: none;
+}
+
+button:hover {
+    background: #aaa;
+    cursor: pointer;
+    cursor: hand;
+}
+
 /* navbar layout */
 
 header {
@@ -139,10 +157,12 @@ header .filter:hover ul {
     display: block;
 }
 
-header .login {
+header .button {
     background: #111;
     padding: 13px;
+    margin: 15px 7px;
 }
+
 
 header > div > h2,
 header > div > ul li a {
@@ -302,22 +322,6 @@ div.card.active > .content {
     font-size: 1rem;
 }
 
-div.card.active > button {
-    align-self: flex-start;
-    margin-top: 15px;
-    padding: 7px 15px;
-    background: white;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    border: none;
-}
-
-div.card.active > button:hover {
-    background: #aaa;
-    cursor: pointer;
-    cursor: hand;
-}
-
 /* footer */
 
 footer {
@@ -332,6 +336,13 @@ footer p.credits {
     font-family: 'IBM Plex Sans', sans-serif !important; 
 }
 
+
+div.modal-content input[name="content"] {
+    min-height: 200px;
+    overflow-y: scroll;
+}
+
+
 @media screen and (max-width: 767px) {
     header {
         display: block;
@@ -339,19 +350,13 @@ footer p.credits {
     }
 
     header .logo,
-    header .filter,
-    header .login {
+    header .filter{
         width: 100%;
         justify-content: center;
         margin: 0 auto;
     }
 
-    header .filter {
-        margin-bottom: 5px;
-    }
-
-    header .login {
-        max-width: 100px;
+    header .button {
         margin-bottom: 15px;
     }
 
