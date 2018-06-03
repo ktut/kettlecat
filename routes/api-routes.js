@@ -111,7 +111,6 @@ const routing = {
   routes: function(app) {
     // GET route for getting all of the boilerplates
     app.get("/api/boilerplates", function(req, res) {
-      console.log("the user id is" + req.session.passport.user);
       // findAll returns all entries for a table when used with no options
       // TODO complete implementation to get tags and searchInput from req.body or req.params
       routing.findBoilerplate().then(function(bp) {
