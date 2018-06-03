@@ -47,7 +47,8 @@ const routing = {
         lang: lang,
         content: content,
         UserId: userId,
-        votes: 0
+        upvotes: 0,
+        downvotes: 0
       });
     }
   },
