@@ -50,6 +50,7 @@ ${boilerplate.content}
 
 // function that displays an array of boilerplates in the UI
 const displayAllBoilerplates = boilerplates => {
+  console.log(boilerplates);
   for (bp of boilerplates) {
     let bpUiFormatted = new Boilerplate(
       bp.title,
@@ -59,7 +60,7 @@ const displayAllBoilerplates = boilerplates => {
       bp.upvotes,
       bp.downvotes,
       bp.tags,
-      bp.UserId
+      bp.User.displayName
     );
     $("main").append(createBoilerplateCard(bpUiFormatted));
   }

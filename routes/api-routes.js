@@ -12,7 +12,9 @@ const routing = {
   // due to its dependence to db connection, this function is tested in api.int.test.js
   findBoilerplate: (tags, searchInput) => {
     // TODO complete implementation
-    return db.Boilerplate.findAll({});
+    return db.Boilerplate.findAll({
+      include: [{ model: db.User }, { model: db.Tag }]
+    });
   },
 
   findOneBoilerplate: id => {
