@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       lang: DataTypes.STRING,
       content: DataTypes.STRING,
-      votes: DataTypes.INTEGER
+      upvotes: DataTypes.INTEGER,
+      downvotes: DataTypes.INTEGER
     },
     {}
   );

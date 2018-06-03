@@ -35,7 +35,8 @@ const routing = {
         content: content,
         tags: tags,
         UserId: userId,
-        votes: 0
+        upvotes: 0,
+        downvotes: 0
       }).then(boilerplate => {
         return boilerplate.addTag(tags);
       });
@@ -199,9 +200,17 @@ const routing = {
       });
     });
 
-    app.put("/api/votes/:id/:votes", function(req, res) {
+    app.put("/api/boilerplates/:id/upvotes/:votes", function(req, res) {
       routing
-        .updateBoilerPlate(req.params.id, { votes: req.params.votes })
+        .updateBoilerPlate(req.params.id, { upvotes: req.params.votes })
+        .then(bpUpdatePut => {
+          res.json(bpUpdatePut);
+        });
+    });
+
+    app.put("/api/boilerplates/:id/downvotes/:votes", function(req, res) {
+      routing
+        .updateBoilerPlate(req.params.id, { downvotes: req.params.votes })
         .then(bpUpdatePut => {
           res.json(bpUpdatePut);
         });
