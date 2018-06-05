@@ -78,6 +78,7 @@ $(document).ready(function() {
   // new Boilerplate creation
   $(document).on("click", ".post-boilerplate", function(event) {
     event.preventDefault();
+    modal.style.display = "none";
     const title = $("#title").val();
     const description = $("#description").val();
     const lang = $("#lang").val();
