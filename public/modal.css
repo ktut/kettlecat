@@ -1,5 +1,5 @@
 div.modal {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     
@@ -36,8 +36,20 @@ div.modal-content input {
     width: 100%;
     margin-top: 10px;
     margin-bottom: 5px;
+    overflow: auto;
 }
 
 div.modal-content button {
     margin-top: 15px;
+}
+
+span.close {
+    float: right;
+    font-size: 25px;
+}
+
+.close:hover,
+.close:focus {
+    cursor: pointer;
+    color: white;
 }

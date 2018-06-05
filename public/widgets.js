@@ -16,8 +16,9 @@ $( document ).ready(function() {
             $(this).css( "background", "grey" )
         }
     });
+    //$('.modal').modal('hide');
 });
-
+let modal = document.getElementById('bpModal');
 // make cards active when selected
 $( "div.card" ).click(function() {
     if (!$(this).hasClass("active")) {
@@ -40,4 +41,11 @@ $( ".js-copy-button" ).click(function() {
     copyText.select();
     document.execCommand("copy");
 });
+
+$(".add-card").click(function() {
+   
+    modal.style.display = "flex";
+})
+let span = document.getElementsByClassName("close")[0];
+
 

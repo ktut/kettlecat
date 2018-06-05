@@ -35,7 +35,7 @@
       <input type="text" class="js-filter" name="filter" placeholder="Filter by search term (or type a tag)">
     </div>
 
-    <div class="add-card button">
+    <div class="add-card button" type="button">
       <h2>Add card</h2>
     </div>
 
@@ -119,8 +119,9 @@
     </div>
 
     <!-- MODAL -->
-  <div class="modal">
+  <div class="modal" id="bpModal">
   <div class="modal-content">
+    <span class ="close">&times;</span>
     <h1>Submit your own boilerplate!</h1>
 
     <label for="title">Title: </label>
@@ -128,7 +129,7 @@
     <label for="description">Description: </label>
     <input type="text" id="description" name="description">
     <label for="lang">Language (e.g. "Javascript"): </label>
-    <input type="text" id="lang" name="description">
+    <input type="text" id="lang" name="lang">
     <label for="content">Your code: </label>
     <input type="text" id="content" name="content">
 
