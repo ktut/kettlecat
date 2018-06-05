@@ -126,6 +126,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     //hide the modal
+    tagModal.style.display = "none";
 
     //get the values from the fields
     const title = $("#tag-title").val();
