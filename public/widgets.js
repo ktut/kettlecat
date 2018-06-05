@@ -45,9 +45,19 @@ $( ".js-copy-button" ).click(function() {
 $(".add-card").click(function() {
    
     modal.style.display = "flex";
-})
-let span = document.getElementsByClassName("close")[0];
+});
 
-span.onclick= function(){
+$(".close").click(function(){
     modal.style.display = "none";
-}
+});
+
+
+$(".add-tag").click(function(){
+    //console.log(modalTag);
+    tagModal.style.display = "flex";
+});
+
+
+$(".closeTag").click(function(){
+    tagModal.style.display = "none";
+});
