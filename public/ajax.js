@@ -13,7 +13,7 @@ const postBoilerplate = function(boilerplate, cb) {
       description: boilerplate.description,
       lang: boilerplate.lang,
       content: boilerplate.content,
-      tags: boilerplates.tags
+      tags: boilerplate.tags
     },
     function(result) {
       cb(result);
@@ -67,6 +67,52 @@ const putDownVote = function(boilerplate, cb) {
 
 const deleteBoilerplate = function(boilerplate, cb) {
   const apiUrl = `/api/boilerplates/${boilerplate.id}`;
+  $.ajax({
+    url: apiUrl,
+    type: "DELETE",
+    success: function(result) {
+      cb(result);
+    }
+  });
+};
+
+const getAllTags = function(cb) {
+  $.get("./api/boilerplates/tags", function(data) {
+    // returns an array containing all tags
+    cb(data);
+  });
+};
+
+const postAllTags = function(boilerplate, cb) {
+  $.post(
+    "./api/boilerplates/tags",
+    {
+      title: tag.title,
+      color: tag.color
+    },
+    function(result) {
+      cb(result);
+    }
+  );
+};
+
+const putTags = function(boilerplate, cb) {
+  const apiUrl = "./api/boilerplates/tags" + boilerplate.tags;
+  $.ajax({
+    url: apiUrl,
+    type: "PUT",
+    data: {
+      title: tag.title,
+      color: tag.color
+    },
+    success: function(result) {
+      cb(result);
+    }
+  });
+};
+
+const deleteTags = function(boilerplate, cb) {
+  const apiUrl = `/api/boilerplates/tags${boilerplate.tags}`;
   $.ajax({
     url: apiUrl,
     type: "DELETE",
