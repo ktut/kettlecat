@@ -77,15 +77,15 @@ const deleteBoilerplate = function(boilerplate, cb) {
 };
 
 const getAllTags = function(cb) {
-  $.get("./api/boilerplates/tags", function(data) {
+  $.get("./api/tags", function(data) {
     // returns an array containing all tags
     cb(data);
   });
 };
 
-const postAllTags = function(boilerplate, cb) {
+const postTag = function(tag, cb) {
   $.post(
-    "./api/boilerplates/tags",
+    "./api/tags",
     {
       title: tag.title,
       color: tag.color
@@ -96,8 +96,8 @@ const postAllTags = function(boilerplate, cb) {
   );
 };
 
-const putTags = function(boilerplate, cb) {
-  const apiUrl = "./api/boilerplates/tags" + boilerplate.tags;
+const putTag = function(tag, cb) {
+  const apiUrl = "./api/tags" + tag.id;
   $.ajax({
     url: apiUrl,
     type: "PUT",
@@ -111,8 +111,8 @@ const putTags = function(boilerplate, cb) {
   });
 };
 
-const deleteTags = function(boilerplate, cb) {
-  const apiUrl = `/api/boilerplates/tags${boilerplate.tags}`;
+const deleteTag = function(tag, cb) {
+  const apiUrl = `/api/tags/${tag.id}`;
   $.ajax({
     url: apiUrl,
     type: "DELETE",

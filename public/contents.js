@@ -31,6 +31,11 @@ const Boilerplate = function(
   this.author = author ? author : null;
 };
 
+const Tag = function(title, color) {
+  this.title = title ? title : null;
+  this.color = color ? color : null;
+};
+
 // function that returns a Boilerplate card as a Jquery object
 const createBoilerplateCard = boilerplate => {
   return $(`<div class="card">
@@ -78,12 +83,16 @@ $(document).ready(function() {
   // new Boilerplate creation
   $(document).on("click", ".post-boilerplate", function(event) {
     event.preventDefault();
+    // hides the modal
     modal.style.display = "none";
+
+    // get the values from the fields
     const title = $("#title").val();
     const description = $("#description").val();
     const lang = $("#lang").val();
     const content = $("#content").val();
 
+    // create a Boilerplate
     const boilerplateToPost = new Boilerplate(
       title,
       description,
@@ -95,6 +104,25 @@ $(document).ready(function() {
       null
     );
 
+    //call the ajax function
     postBoilerplate(boilerplateToPost, appendNewBoilerplate);
+  });
+
+  //new Tag action
+  $(document).on("click", ".post-tag", function(event) {
+    event.preventDefault();
+
+    //hide the modal
+
+    //get the values from the fields
+    const title = $("#tag-title").val();
+    const color = $("#color").val();
+
+    // create a Tag
+    const tagToPost = new Tag(title, color);
+
+    postTag(tagToPost, data => {
+      console.log(data);
+    });
   });
 });
