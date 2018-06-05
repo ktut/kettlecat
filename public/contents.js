@@ -50,7 +50,6 @@ ${boilerplate.content}
 
 // function that displays an array of boilerplates in the UI
 const displayAllBoilerplates = boilerplates => {
-  console.log(boilerplates);
   for (bp of boilerplates) {
     let bpUiFormatted = new Boilerplate(
       bp.title,
@@ -66,7 +65,35 @@ const displayAllBoilerplates = boilerplates => {
   }
 };
 
+const appendNewBoilerplate = boilerplate => {
+  boilerplate.author = boilerplate.User.displayName;
+  boilerplate.tags = "A Tag";
+  $("main").append(createBoilerplateCard(boilerplate));
+};
+
 $(document).ready(function() {
   // call the AJAX function and pass the display action as a callback
   getAllBoilerplates(displayAllBoilerplates);
+
+  // new Boilerplate creation
+  $(document).on("click", ".post-boilerplate", function(event) {
+    event.preventDefault();
+    const title = $("#title").val();
+    const description = $("#description").val();
+    const lang = $("#lang").val();
+    const content = $("#content").val();
+
+    const boilerplateToPost = new Boilerplate(
+      title,
+      description,
+      lang,
+      content,
+      null,
+      null,
+      null,
+      null
+    );
+
+    postBoilerplate(boilerplateToPost, appendNewBoilerplate);
+  });
 });

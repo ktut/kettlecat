@@ -27,7 +27,7 @@ const routing = {
     });
   },
   // due to its dependence to db connection, this function is tested in api.int.test.js
-  createBoilerplate: (title, description, lang, content, tags, userId) => {
+  createBoilerplate: (title, description, lang, content, tags, userId, res) => {
     // FIXME tags management makes the test fail, pb of asynchronism
     if (tags) {
       return db.Boilerplate.create({
@@ -40,7 +40,7 @@ const routing = {
         upvotes: 0,
         downvotes: 0
       }).then(boilerplate => {
-        return boilerplate.addTag(tags);
+        boilerplate.addTag(tags);
       });
     } else {
       return db.Boilerplate.create({
@@ -51,7 +51,18 @@ const routing = {
         UserId: userId,
         upvotes: 0,
         downvotes: 0
-      });
+      })
+        .then(boilerplate => {
+          return db.Boilerplate.findOne({
+            where: {
+              id: boilerplate.id
+            },
+            include: [{ model: db.User }, { model: db.Tag }]
+          });
+        })
+        .then(boilerplateComplete => {
+          res.json(boilerplateComplete);
+        });
     }
   },
   // update boilerplate
@@ -142,19 +153,15 @@ const routing = {
       // into our table. In this case we just we pass in an object with a text and
       // complete property
       console.log(req.body);
-      routing
-        .createBoilerplate(
-          req.body.title,
-          req.body.description,
-          req.body.lang,
-          req.body.content,
-          req.body.tags,
-          1
-        )
-        .then(function(bp) {
-          // We have access to the new boilerplate as an argument inside of the callback function
-          res.json(bp);
-        });
+      routing.createBoilerplate(
+        req.body.title,
+        req.body.description,
+        req.body.lang,
+        req.body.content,
+        req.body.tags,
+        req.session.passport.user,
+        res
+      );
     });
 
     //DELETE route for Boilerplate

@@ -13,7 +13,7 @@ const postBoilerplate = function(boilerplate, cb) {
       description: boilerplate.description,
       lang: boilerplate.lang,
       content: boilerplate.content,
-      tags: boilerplates.tags
+      tags: boilerplate.tags
     },
     function(result) {
       cb(result);
