@@ -76,7 +76,20 @@ const appendNewBoilerplate = boilerplate => {
   $("main").append(createBoilerplateCard(boilerplate));
 };
 
+const displayUserInfo = user => {
+  if (user) {
+    $(".login")
+      .empty()
+      .append(`<h2 class="logged">Logged in as ${user.displayName}</h2>`);
+  } else {
+    console.log("no user is connected");
+  }
+};
+
 $(document).ready(function() {
+  // get user info
+  getUser(displayUserInfo);
+
   // call the AJAX function and pass the display action as a callback
   getAllBoilerplates(displayAllBoilerplates);
 

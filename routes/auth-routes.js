@@ -125,4 +125,8 @@ module.exports = app => {
     req.logout();
     res.redirect("/");
   });
+
+  app.get("/api/users/me", function(req, res) {
+    res.json(req.user);
+  });
 };

@@ -363,3 +363,7 @@ div.modal-content input[name="content"] {
     grid-row-end: span 1;
   }
 }
+
+.logged {
+  color: white;
+}

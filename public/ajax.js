@@ -121,3 +121,9 @@ const deleteTag = function(tag, cb) {
     }
   });
 };
+
+const getUser = function(cb) {
+  $.get("/api/users/me", function(data) {
+    cb(data);
+  });
+};
