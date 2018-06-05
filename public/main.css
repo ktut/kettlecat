@@ -1,368 +1,365 @@
 * {
-    box-sizing: border-box;
-    font-family: 'IBM Plex Sans', sans-serif;
+  box-sizing: border-box;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 body {
-    background: #333;
+  background: #333;
 }
 
-
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 
 button {
-    align-self: flex-start;
-    margin-top: 15px;
-    padding: 7px 15px;
-    background: white;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    border: none;
+  align-self: flex-start;
+  margin-top: 15px;
+  padding: 7px 15px;
+  background: white;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  border: none;
 }
 
 button:hover {
-    background: #aaa;
-    cursor: pointer;
-    cursor: hand;
+  background: #aaa;
+  cursor: pointer;
+  cursor: hand;
 }
 
 /* navbar layout */
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    border-bottom: 5px dotted #555;
+  border-bottom: 5px dotted #555;
 }
 
 header .logo,
 header .filter {
-    padding: 15px;
+  padding: 15px;
 }
 
 /* logo layout and animation */
 
 header .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 header .logo img.move {
-    animation-name: pour;
-    animation-duration: 1.5s; 
-    animation-timing-function: ease-out; 
-    animation-delay: 0s;
-    animation-direction: alternate;
-    animation-fill-mode: none;
+  animation-name: pour;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0s;
+  animation-direction: alternate;
+  animation-fill-mode: none;
 }
 
 @keyframes pour {
-    0% {
-        opacity: 0;
-        transform: rotate(0);
-    }
-    50% {
-        transform: rotate(20deg);
-    }
-    100% {
-        opacity: 1;
-        transform: rotate(0);
-    }
+  0% {
+    opacity: 0;
+    transform: rotate(0);
   }
+  50% {
+    transform: rotate(20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0);
+  }
+}
 
 header .logo img {
-    height: 52px;
-    margin-right: 10px;
+  height: 52px;
+  margin-right: 10px;
 }
 
 header .logo h1 {
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    background-image: url("./assets/smoke.png");
-    background-size: cover;
-    background-position: right;
-    background-size: 600px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: url("./assets/smoke.png");
+  background-size: cover;
+  background-position: right;
+  background-size: 600px;
 
-    font-size: 1.8rem;
-    font-weight: 700;
-    letter-spacing: 6px;
-    font-family: 'IBM Plex Sans', sans-serif;
-    text-transform: uppercase;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  font-family: "IBM Plex Sans", sans-serif;
+  text-transform: uppercase;
 }
 
 header .logo h1.move {
-    animation-name: smokeIn;
-    animation-duration: 5s; 
-    animation-timing-function: ease; 
-    /* animation-delay: 0.5s; */
-    animation-fill-mode: forwards;
+  animation-name: smokeIn;
+  animation-duration: 5s;
+  animation-timing-function: ease;
+  /* animation-delay: 0.5s; */
+  animation-fill-mode: forwards;
 }
 
 @keyframes smokeIn {
-    0% {
-        opacity: .25;
-        background-position: right;
-    }
-    100% {
-        opacity: 1;
-        background-position: left;
-    }
+  0% {
+    opacity: 0.25;
+    background-position: right;
+  }
+  100% {
+    opacity: 1;
+    background-position: left;
+  }
 }
 
 /* disable anim for lame browsers */
 @supports not ((-webkit-background-clip: text) or (background-clip: text;)) {
-    header .logo h1 {
-        background: none !important;
-        color: white !important;
-    }
+  header .logo h1 {
+    background: none !important;
+    color: white !important;
+  }
 }
 
 /* more header stuff */
 
 header .filter {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 header .filter,
 header .login {
-    position: relative;
-    margin: 15px;
+  position: relative;
+  margin: 15px;
 }
 
 header .filter input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1.1rem;
-    background: #111;
-    color: #eee;
-    border: none;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.1rem;
+  background: #111;
+  color: #eee;
+  border: none;
 }
 
 header .filter:hover {
-    cursor: pointer;
-    cursor: hand;
+  cursor: pointer;
+  cursor: hand;
 }
 
 header .filter ul li a {
-    padding: 10px;
+  padding: 10px;
 }
 
 header .filter ul {
-    display: none;
-    position: absolute;
+  display: none;
+  position: absolute;
 }
 
 header .filter:hover ul {
-    display: block;
+  display: block;
 }
 
 header .button {
-    background: #111;
-    padding: 13px;
-    margin: 15px 7px;
+  background: #111;
+  padding: 13px;
+  margin: 15px 7px;
 }
-
 
 header > div > h2,
 header > div > ul li a {
-    font-family: 'IBM Plex Sans', sans-serif;
-    color: white;
-    text-transform: uppercase;
+  font-family: "IBM Plex Sans", sans-serif;
+  color: white;
+  text-transform: uppercase;
 }
-
 
 /* main layout, flexbox with grid prog enhancement :) */
 
 main {
-    padding-top: 15px;
-    padding-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 
-    padding: 2vw;
+  padding: 2vw;
 }
 
 div.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 
-    max-width: 300px;
-    min-height: 300px;
-    margin: 10px;
-    
-    font-family: 'IBM Plex Sans', sans-serif !important;
-    color: #ddd;
-    background: #555;
-    padding: 25px 15px;
-    border-radius: 5px;
+  max-width: 300px;
+  min-height: 300px;
+  margin: 10px;
 
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.37);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.37);
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.37);
-    
-    transition: all 0.5s;
+  font-family: "IBM Plex Sans", sans-serif !important;
+  color: #ddd;
+  background: #555;
+  padding: 25px 15px;
+  border-radius: 5px;
+
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.37);
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.37);
+
+  transition: all 0.5s;
 }
 
 div.card > div.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
 }
 
 div.card.active {
-    max-width: 100%;
-    width: 100%;
+  max-width: 100%;
+  width: 100%;
 }
 
 div.card.active h1 {
-    font-size: 2.3rem;
-}
-  
-@supports (display:grid) {
-    main {
-        display: -ms-grid;
-        display: grid;
-        justify-items: center;
-
-        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
-        grid-auto-flow: dense;
-        grid-gap: 20px;
-    }
-
-    div.card {
-        margin: 0;
-    }
-
-    div.card.active {
-        grid-column-end: span 2;
-        grid-row-end: span 2;
-        width: auto;
-    }
+  font-size: 2.3rem;
 }
 
+@supports (display: grid) {
+  main {
+    display: -ms-grid;
+    display: grid;
+    justify-items: center;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-flow: dense;
+    grid-gap: 20px;
+  }
+
+  div.card {
+    margin: 0;
+  }
+
+  div.card.active {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+    width: auto;
+  }
+}
 
 div.card:not(.active):hover {
-    cursor: pointer;
-    cursor: hand;
-    background: #666;
+  cursor: pointer;
+  cursor: hand;
+  background: #666;
 }
 
 div.card .tag {
-    position: relative;
-    right: -15px;
-    padding: 10px;
-    border-bottom-left-radius: 25px;
-    border-top-left-radius: 25px;
+  position: relative;
+  right: -15px;
+  padding: 10px;
+  border-bottom-left-radius: 25px;
+  border-top-left-radius: 25px;
 
-    -webkit-box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.3);
-    box-shadow: -3px 0px 10px 0px rgba(0,0,0,0.3);
+  -webkit-box-shadow: -3px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: -3px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: -3px 0px 10px 0px rgba(0, 0, 0, 0.3);
 
-    font-size: 0.8rem;
-    text-transform: uppercase;
+  font-size: 0.8rem;
+  text-transform: uppercase;
 }
 
 div.card > p {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 div.card h1 {
-    font-weight: 700;
-    font-size: 1.15rem;
-    margin-top: 2px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-top: 2px;
 }
 
 div.card > p.author:before {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    content: "Author: ";
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  content: "Author: ";
 }
 
 div.card > p.desc {
-    line-height: 130%;
+  line-height: 130%;
 }
 
 div.card > p.lang {
-    align-self: flex-start;
-    font-size: 0.8rem;
-    display: inline-block;
-    background: black;
-    padding: 5px 5px 4px;
-    text-transform: uppercase;
+  align-self: flex-start;
+  font-size: 0.8rem;
+  display: inline-block;
+  background: black;
+  padding: 5px 5px 4px;
+  text-transform: uppercase;
 }
 
 div.card > .content {
-    flex-grow: 1;
-    font-family: 'IBM Plex Mono', monospace;
-    padding: 15px;
-    margin-top: 15px;
-    display: inline-block;
-    background: #111;
-    color: #eee;
-    min-height: 100px;
-    overflow-y: scroll;
+  flex-grow: 1;
+  font-family: "IBM Plex Mono", monospace;
+  padding: 15px;
+  margin-top: 15px;
+  display: inline-block;
+  background: #111;
+  color: #eee;
+  min-height: 100px;
+  overflow-y: scroll;
 }
 
 div.card > p.desc,
 div.card > button {
-    display: none;
+  display: none;
 }
 
 div.card.active > p.desc,
 div.card.active > button {
-    display: block;
+  display: block;
 }
 
 div.card.active > .content {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 /* footer */
 
 footer {
-    margin-top: 40px;
-    border-top: 5px dotted #555;
+  margin-top: 40px;
+  border-top: 5px dotted #555;
 }
 
 footer p.credits {
-    padding: 15px 15px 25px;
-    text-align: center;
-    color: #ddd;
-    font-family: 'IBM Plex Sans', sans-serif !important; 
+  padding: 15px 15px 25px;
+  text-align: center;
+  color: #ddd;
+  font-family: "IBM Plex Sans", sans-serif !important;
 }
-
 
 div.modal-content input[name="content"] {
-    min-height: 200px;
-    overflow-y: scroll;
+  min-height: 200px;
+  overflow-y: scroll;
 }
 
-
 @media screen and (max-width: 767px) {
-    header {
-        display: block;
-        text-align: center;
-    }
+  header {
+    display: block;
+    text-align: center;
+  }
 
-    header .logo,
-    header .filter{
-        width: 100%;
-        justify-content: center;
-        margin: 0 auto;
-    }
+  header .logo,
+  header .filter {
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto;
+  }
 
-    header .button {
-        margin-bottom: 15px;
-    }
+  header .button {
+    margin-bottom: 15px;
+  }
 
-    div.card.active {
-        grid-column-end: span 1;
-        grid-row-end: span 1;
-    }
-    
+  div.card.active {
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+  }
 }
