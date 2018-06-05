@@ -13,6 +13,21 @@ div.modal {
     background: rgba(0,0,0,0.7);
 }
 
+#tagModal {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    
+    /* padding-top: calc(15px + 15vw); */
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+}
+
 div.modal-content {
     z-index: 3;
     position: relative;
@@ -43,13 +58,16 @@ div.modal-content button {
     margin-top: 15px;
 }
 
-span.close {
+span.close,
+span.closeTag {
     float: right;
     font-size: 25px;
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.closeTag:hover,
+.closeTag:focus {
     cursor: pointer;
     color: white;
 }
