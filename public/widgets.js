@@ -1,43 +1,63 @@
-// document ready = get all posts
-// ajax.getPosts
+$( document ).ready(function() {
+    $(".animate").addClass("move");
 
+    // AJAX goes here: get 20 posts
+    // getAllPosts();
+
+    // set tag colors based on content
+    // • backend = blue
+    // • frontend = red
+    $('div.card p.tag').each(function( index ) {
+        if ($(this).text().trim() == 'backend') {
+            $(this).css( "background", "blue" )
+        } else if ($(this).text().trim() == 'frontend') {
+            $(this).css( "background", "red" )
+        } else {
+            $(this).css( "background", "grey" )
+        }
+    });
+    //$('.modal').modal('hide');
+});
+let modal = document.getElementById('bpModal');
 // make cards active when selected
-$( "div.card" ).click(function() {
+$(document).on("click", "div.card",function() {
     if (!$(this).hasClass("active")) {
         $(this).toggleClass("active");
         $(this).siblings( "div.card" ).removeClass("active");
     }
 });
 
-// on load, do the following:
-// 1. get 20 posts, THEN
-// 2. set tag colors based on content
-// • backend = blue
-// • frontend = red
-// 3. when typing in filter box, execute sequelize query and get posts again
-// 4. when clicking copy button, copy code
+ // when typing in filter box, every 500ms, update posts
+let filterResults = function() {
+    console.log($(".js-filter").val());
+    // AJAX: get posts using above string as query
+}
+$('.js-filter').keyup(_.debounce(filterResults , 500));
 
-$( document ).ready(function() {
+// 
+$( ".js-copy-button" ).click(function() {
+    var copyText = $(this).siblings("textarea.content");
+    copyText.focus();
+    copyText.select();
+    document.execCommand("copy");
+});
 
-    // get all posts
+$(".add-card").click(function() {
+   
+    modal.style.display = "flex";
+});
 
-    $('div.card p.tag').each(function( index ) {
-        if ($(this).text() == 'backend') {
-            $(this).css( "background", "blue" )
-        } else if ($(this).text() == 'frontend') {
-            $(this).css( "background", "red" )
-        } else {
-            $(this).css( "background", "grey" )
-        }
-    });
+$(".close").click(function(){
+    modal.style.display = "none";
+});
 
-    // when typing in filter box, execute sequelize query and get posts again
-    
-    let filterWhileTyping = function() {
-        console.log($(".js-filter").text());
-    }
 
-    $('.js-filter').keyup(_.debounce(filterWhileTyping , 300));
+$(".add-tag").click(function(){
+    //console.log(modalTag);
+    tagModal.style.display = "flex";
+});
 
-    // when clicking copy button, copy code
+
+$(".closeTag").click(function(){
+    tagModal.style.display = "none";
 });

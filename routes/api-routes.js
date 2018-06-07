@@ -8,49 +8,72 @@
 var db = require("../models");
 
 // Routes =============================================================
-module.exports = {
+const routing = {
   // due to its dependence to db connection, this function is tested in api.int.test.js
   findBoilerplate: (tags, searchInput) => {
     // TODO complete implementation
-    return db.Boilerplate.findAll({});
+    return db.Boilerplate.findAll({
+      include: [{ model: db.User }, { model: db.Tag }]
+    });
   },
-  
-  findOneBoilerplate: (id) => {
+
+  findOneBoilerplate: id => {
     return db.Boilerplate.findOne({
       where: {
         id: id
       }
     }).then(bpOne => {
-      return bpOne
-    }) 
+      return bpOne;
+    });
   },
   // due to its dependence to db connection, this function is tested in api.int.test.js
-  createBoilerplate: (title, content, tags) => {
+  createBoilerplate: (title, description, lang, content, tags, userId, res) => {
     // FIXME tags management makes the test fail, pb of asynchronism
     if (tags) {
-      db.Boilerplate.create({
+      return db.Boilerplate.create({
         title: title,
-        content: content
+        description: description,
+        lang: lang,
+        content: content,
+        tags: tags,
+        UserId: userId,
+        upvotes: 0,
+        downvotes: 0
       }).then(boilerplate => {
-        return boilerplate.addTag(tags);
+        boilerplate.addTag(tags);
       });
     } else {
       return db.Boilerplate.create({
         title: title,
-        content: content
-      });
+        description: description,
+        lang: lang,
+        content: content,
+        UserId: userId,
+        upvotes: 0,
+        downvotes: 0
+      })
+        .then(boilerplate => {
+          return db.Boilerplate.findOne({
+            where: {
+              id: boilerplate.id
+            },
+            include: [{ model: db.User }, { model: db.Tag }]
+          });
+        })
+        .then(boilerplateComplete => {
+          res.json(boilerplateComplete);
+        });
     }
   },
   // update boilerplate
   updateBoilerPlate: (id, updatedContent) => {
-    return db.Boilerplate.update(updatedContent,
-      {
-        where:{
-          id: id
-        }
-      }).then(bpUpdate => {
-        return bpUpdate
-      });
+    return db.Boilerplate.update(updatedContent, {
+      where: {
+        id: id
+      }
+    }).then(bpUpdate => {
+      return bpUpdate;
+    });
   },
   //delete Boilerplate
   deleteBoilerPlate: id => {
@@ -75,22 +98,23 @@ module.exports = {
     return db.Tag.findAll({});
   },
 
-  deleteTag: (id) => {
+  deleteTag: id => {
     return db.Tag.destroy({
       where: {
         id: id
       }
     }).then(tagDel => {
-      return tagDel
+      return tagDel;
     });
   },
 
   updateTag: (id, tagContent) => {
-    return db.Tag.update(tagContents, 
-    {
-      id: id
+    return db.Tag.update(tagContent, {
+      where: {
+        id: id
+      }
     }).then(tagUpdate => {
-      return tagUpdate
+      return tagUpdate;
     });
   },
 
@@ -100,43 +124,57 @@ module.exports = {
     app.get("/api/boilerplates", function(req, res) {
       // findAll returns all entries for a table when used with no options
       // TODO complete implementation to get tags and searchInput from req.body or req.params
-      this.findBoilerplate().then(function(bp) {
+      routing.findBoilerplate().then(function(bp) {
         // We have access to the boilerplates as an argument inside of the callback function
         res.json(bp);
       });
     });
 
     app.get("/api/boilerplates/:id", function(req, res) {
-      this.findOneBoilerplate(req.params.id).then(function(bpOneGet){
+      routing.findOneBoilerplate(req.params.id).then(function(bpOneGet) {
         res.json(bpOneGet);
-      })
-    })
+      });
+    });
     // POST route for saving a new boilerplate
+    // app.post("/api/boilerplates", function(req, res) {
+    //   // create takes an argument of an object describing the item we want to insert
+    //   // into our table. In this case we just we pass in an object with a text and
+    //   // complete property
+    //   routing
+    //     .createBoilerplate(req.body.title, req.body.content, req.body.tags)
+    //     .then(function(bp) {
+    //       // We have access to the new boilerplate as an argument inside of the callback function
+    //       res.json(bp);
+    //     });
+    // });
+
     app.post("/api/boilerplates", function(req, res) {
       // create takes an argument of an object describing the item we want to insert
       // into our table. In this case we just we pass in an object with a text and
       // complete property
-      this.createBoilerplate(
+      console.log(req.body);
+      routing.createBoilerplate(
         req.body.title,
+        req.body.description,
+        req.body.lang,
         req.body.content,
-        req.body.tags
-      ).then(function(bp) {
-        // We have access to the new boilerplate as an argument inside of the callback function
-        res.json(bp);
-      });
+        req.body.tags,
+        req.session.passport.user,
+        res
+      );
     });
 
     //DELETE route for Boilerplate
     app.delete("/api/boilerplates/:id", function(req, res) {
-      this.deleteBoilerPlate(req.params.id).then(dbreturn => {
+      routing.deleteBoilerPlate(req.params.id).then(dbreturn => {
         res.json(dbreturn);
       });
     });
     //PUT route for updating Boilerplates
-    app.put("/api/boilerplates/:id", function(req, res){
-      this.updateBoilerPlate(req.params.id, req.body).then(bpUpdatePut => {
+    app.put("/api/boilerplates/:id", function(req, res) {
+      routing.updateBoilerPlate(req.params.id, req.body).then(bpUpdatePut => {
         res.json(bpUpdatePut);
-      })
+      });
     });
     ///////////////////////////tag routes///////////////////////////////////
     //POST route for saving a new Tag
@@ -144,29 +182,49 @@ module.exports = {
       // create takes an argument of an object describing the item we want to insert
       // into our table. In this case we just we pass in an object with a text and
       // complete property
-      this.createTag(req.body.title, req.body.color).then(function(tag) {
+      routing.createTag(req.body.title, req.body.color).then(function(tag) {
         // We have access to the new tag as an argument inside of the callback function
         res.json(tag);
       });
     });
     //GET route for all of the Tags
-    app.get("/api/tags", function(req, res){
-      this.findAllTags(req.body.title, req.body.color).then(function(allTags) {
-        res.json(allTags);
+    app.get("/api/tags", function(req, res) {
+      routing
+        .findAllTags(req.body.title, req.body.color)
+        .then(function(allTags) {
+          res.json(allTags);
+        });
+    });
+
+    //DELETE route for a Tag by ID
+    app.delete("/api/tags/:id", function(req, res) {
+      routing.deleteTag(req.params.id).then(tagreturn => {
+        res.json(tagreturn);
       });
     });
-    //DELETE route for a Tag by ID
-    app.delete("api/tags/:id", function(req, res) {
-      this.deleteTag(req.params.id).then(tagreturn => {
-        res.json(tagreturn);
-      })
+
+    app.put("/api/tags/:id", function(req, res) {
+      routing.updateTag(req.params.id, req.body).then(tagUpdatePut => {
+        res.json(tagUpdatePut);
+      });
     });
 
-    app.put("api/tags/id:", function(req, res) {
-      this.updateTag(req.params.id, req.body).then(tagUpdatePut => {
-        req.json(tagUpdatePut);
-      })
+    app.put("/api/boilerplates/:id/upvotes/:votes", function(req, res) {
+      routing
+        .updateBoilerPlate(req.params.id, { upvotes: req.params.votes })
+        .then(bpUpdatePut => {
+          res.json(bpUpdatePut);
+        });
     });
 
+    app.put("/api/boilerplates/:id/downvotes/:votes", function(req, res) {
+      routing
+        .updateBoilerPlate(req.params.id, { downvotes: req.params.votes })
+        .then(bpUpdatePut => {
+          res.json(bpUpdatePut);
+        });
+    });
   }
 };
+
+module.exports = routing;

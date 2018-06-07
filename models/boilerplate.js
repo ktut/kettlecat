@@ -4,7 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     "Boilerplate",
     {
       title: DataTypes.STRING,
-      content: DataTypes.STRING
+      description: DataTypes.STRING,
+      lang: DataTypes.STRING,
+      content: DataTypes.STRING,
+      upvotes: DataTypes.INTEGER,
+      downvotes: DataTypes.INTEGER
     },
     {}
   );
