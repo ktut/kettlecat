@@ -139,4 +139,8 @@ $(document).ready(function() {
       console.log(data);
     });
   });
+
+  $(docuemtn).on("click", '.js-edit-button', function(){
+    
+  })
 });
