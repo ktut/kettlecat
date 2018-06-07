@@ -49,7 +49,11 @@ const createBoilerplateCard = boilerplate => {
   <textarea class="content">
 ${boilerplate.content}
 </textarea>
+<div class="buttons">
   <button class="js-copy-button">Copy</button>
+  <button class="js-edit-button">Edit</button>
+  <button class="js-delete-button">Delete</button>
+</div>
 </div>`);
 };
 

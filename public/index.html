@@ -68,9 +68,13 @@
             const element = array[index];
         }
       </textarea>
-      <button class="js-copy-button">Copy</button>
-      <button class="js-edit-button">Edit</button>
-      <button class="js-delete-button">Delete</button>
+    
+      <div class="buttons">
+        <button class="js-copy-button">Copy</button>
+        <button class="js-edit-button">Edit</button>
+        <button class="js-delete-button">Delete</button>
+      </div>
+      
     </div>
 
     <div class="card">
@@ -86,10 +90,14 @@
     const element = array[index];
 }
     </textarea>
+  
+    <div class="buttons">
       <button class="js-copy-button">Copy</button>
       <button class="js-edit-button">Edit</button>
       <button class="js-delete-button">Delete</button>
-    </div>
+    </div>  
+    
+  </div>
 
     <div class="card">
       <div class="top">
@@ -104,10 +112,14 @@
     const element = array[index];
 }
     </textarea>
+  
+    <div class="buttons">
       <button class="js-copy-button">Copy</button>
       <button class="js-edit-button">Edit</button>
       <button class="js-delete-button">Delete</button>
-    </div>
+    </div>  
+    
+  </div>
 
     <div class="card">
       <div class="top">
@@ -122,10 +134,14 @@
     const element = array[index];
 }
     </textarea>
+  
+    <div class="buttons">
       <button class="js-copy-button">Copy</button>
       <button class="js-edit-button">Edit</button>
       <button class="js-delete-button">Delete</button>
-    </div>
+    </div>  
+    
+  </div>
 
     <!-- BOILERPLATE MODAL -->
   <div class="modal" id="bpModal">
@@ -141,6 +157,10 @@
     <input type="text" id="lang" name="lang">
     <label for="content">Your code: </label>
     <input type="text" id="content" name="content">
+    <label for="tag" class="tag-label">Tag: </label>
+    <select id="tag-select">
+      <option value="tag1">Tags go here</option>
+      <option value="tag2">Tags go here</option>    </select>
 
     <button class="post-boilerplate">Submit</button>
   </div>

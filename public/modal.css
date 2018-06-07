@@ -54,7 +54,17 @@ div.modal-content input {
     overflow: auto;
 }
 
+div.modal-content input#content {
+    margin-bottom: 10px;
+}
+
+div.modal-content label.tag-label {
+    display: inline;
+    margin-right: 5px;
+}
+
 div.modal-content button {
+    display: block;
     margin-top: 15px;
 }
 
