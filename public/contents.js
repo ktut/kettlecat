@@ -46,15 +46,15 @@ const createBoilerplateCard = boilerplate => {
   <p class="author">${boilerplate.author}</p>
   <p class="desc">${boilerplate.description}</p>
   <p class="lang">${boilerplate.lang}</p>
-  <textarea class="content">
-${boilerplate.content}
-</textarea>
-<div class="buttons">
-  <button class="js-copy-button">Copy</button>
-  <button class="js-edit-button">Edit</button>
-  <button class="js-delete-button">Delete</button>
-</div>
-</div>`);
+  <textarea class="content" readonly>
+  ${boilerplate.content}
+  </textarea>
+  <div class="buttons">
+    <button class="js-copy-button">Copy</button>
+    <button class="js-edit-button">Edit</button>
+    <button class="js-delete-button">Delete</button>
+  </div>
+  </div>`);
 };
 
 // function that displays an array of boilerplates in the UI

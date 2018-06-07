@@ -1,10 +1,7 @@
 $( document ).ready(function() {
     $(".animate").addClass("move");
 
-    // AJAX goes here: get 20 posts
-    // getAllPosts();
-
-    // set tag colors based on content
+    // TEMPORARY: set tag colors based on content
     // • backend = blue
     // • frontend = red
     $('div.card p.tag').each(function( index ) {
@@ -34,30 +31,27 @@ let filterResults = function() {
 }
 $('.js-filter').keyup(_.debounce(filterResults , 500));
 
-// 
-$( ".js-copy-button" ).click(function() {
+
+// when clicking various buttons, do stuff
+$(document).on("click", ".js-copy-button",function() {
     var copyText = $(this).siblings("textarea.content");
     copyText.focus();
     copyText.select();
     document.execCommand("copy");
 });
 
-$(".add-card").click(function() {
-   
-    modal.style.display = "flex";
+$(document).on("click", ".add-card",function() {
+    modal.style.display = "block";
 });
 
-$(".close").click(function(){
+$(document).on("click", ".close",function() {
     modal.style.display = "none";
 });
 
-
-$(".add-tag").click(function(){
-    //console.log(modalTag);
-    tagModal.style.display = "flex";
+$(document).on("click", ".add-tag",function() {
+    tagModal.style.display = "block";
 });
 
-
-$(".closeTag").click(function(){
+$(document).on("click", ".closeTag",function() {
     tagModal.style.display = "none";
 });
