@@ -59,6 +59,7 @@ ${boilerplate.content}
 
 // function that displays an array of boilerplates in the UI
 const displayAllBoilerplates = boilerplates => {
+  $("main").empty();
   for (bp of boilerplates) {
     let bpUiFormatted = new Boilerplate(
       bp.title,
