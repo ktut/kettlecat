@@ -27,6 +27,12 @@ div.modal-content {
     color: #ddd;
 }
 
+div.modal-content h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 130%;
+}
+
 div.modal-content label,
 div.modal-content input {
     display: block;

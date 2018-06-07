@@ -319,6 +319,14 @@ div.card > .content {
   overflow-y: scroll;
 }
 
+div.card > .votes {
+  margin-top: 15px;
+}
+
+div.card > .votes span {
+  margin-right: 10px;
+}
+
 div.card > p.desc,
 div.card > .buttons {
   display: none;
