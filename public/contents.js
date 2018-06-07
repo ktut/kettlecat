@@ -144,7 +144,7 @@ $(document).ready(function() {
     });
   });
 
-  $(docuemtn).on("click", '.js-edit-button', function(){
+  $(document).on("click", '.js-edit-button', function(){
     
   })
 });
