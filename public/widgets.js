@@ -20,7 +20,7 @@ $( document ).ready(function() {
 });
 let modal = document.getElementById('bpModal');
 // make cards active when selected
-$( "div.card" ).click(function() {
+$(document).on("click", "div.card",function() {
     if (!$(this).hasClass("active")) {
         $(this).toggleClass("active");
         $(this).siblings( "div.card" ).removeClass("active");
