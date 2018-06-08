@@ -5,6 +5,19 @@ const getAllBoilerplates = function(cb) {
   });
 };
 
+const searchBoilerplates = function(query, cb) {
+  $.ajax({
+    url: "./api/search",
+    type: "POST",
+    data: {
+      searchQuery: query
+    },
+    success: function(result) {
+      cb(result);
+    }
+  });
+};
+
 const postBoilerplate = function(boilerplate, cb) {
   $.post(
     "./api/boilerplates",
@@ -27,11 +40,7 @@ const putBoilerplate = function(boilerplate, cb) {
     url: apiUrl,
     type: "PUT",
     data: {
-      title: boilerplate.title,
-      description: boilerplate.description,
-      lang: boilerplate.lang,
       content: boilerplate.content,
-      tags: boilerplates.tags
     },
     success: function(result) {
       cb(result);
@@ -65,8 +74,8 @@ const putDownVote = function(boilerplate, cb) {
   });
 };
 
-const deleteBoilerplate = function(boilerplate, cb) {
-  const apiUrl = `/api/boilerplates/${boilerplate.id}`;
+const deleteBoilerplate = function(boilerplateId, cb) {
+  const apiUrl = `/api/boilerplates/${boilerplateId}`;
   $.ajax({
     url: apiUrl,
     type: "DELETE",

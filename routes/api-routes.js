@@ -6,6 +6,8 @@
 
 // Requiring our models
 var db = require("../models");
+var Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 // Routes =============================================================
 const routing = {
@@ -26,6 +28,27 @@ const routing = {
       return bpOne;
     });
   },
+
+  // search function
+  searchBoilerplates: searchQuery => {
+    return db.Boilerplate.findAll({
+      where: {
+        [Op.or]: [
+          {
+            title: {
+              [Op.like]: "%" + searchQuery + "%"
+            }
+          },
+          {
+            description: {
+              [Op.like]: "%" + searchQuery + "%"
+            }
+          }
+        ]
+      },
+      include: [{ model: db.User }, { model: db.Tag }]
+    });
+  },
   // due to its dependence to db connection, this function is tested in api.int.test.js
   createBoilerplate: (title, description, lang, content, tags, userId, res) => {
     // FIXME tags management makes the test fail, pb of asynchronism
@@ -39,9 +62,22 @@ const routing = {
         UserId: userId,
         upvotes: 0,
         downvotes: 0
-      }).then(boilerplate => {
-        boilerplate.addTag(tags);
-      });
+      })
+        .then(boilerplate => {
+          return boilerplate.addTag(tags);
+        })
+        .then(boilerplateTag => {
+          console.log(JSON.stringify(boilerplateTag));
+          return db.Boilerplate.findOne({
+            where: {
+              id: boilerplateTag[0][0].BoilerplateId
+            },
+            include: [{ model: db.User }, { model: db.Tag }]
+          });
+        })
+        .then(boilerplateComplete => {
+          res.json(boilerplateComplete);
+        });
     } else {
       return db.Boilerplate.create({
         title: title,
@@ -68,11 +104,11 @@ const routing = {
   // update boilerplate
   updateBoilerPlate: (id, updatedContent) => {
     return db.Boilerplate.update(updatedContent, {
+      returning: true,
+      plain: true,
       where: {
         id: id
       }
-    }).then(bpUpdate => {
-      return bpUpdate;
     });
   },
   //delete Boilerplate
@@ -148,6 +184,13 @@ const routing = {
     //     });
     // });
 
+    app.post("/api/search", (req, res) => {
+      console.log("The query is " + req.body.searchQuery);
+      routing
+        .searchBoilerplates(req.body.searchQuery)
+        .then(result => res.json(result));
+    });
+
     app.post("/api/boilerplates", function(req, res) {
       // create takes an argument of an object describing the item we want to insert
       // into our table. In this case we just we pass in an object with a text and
@@ -172,9 +215,11 @@ const routing = {
     });
     //PUT route for updating Boilerplates
     app.put("/api/boilerplates/:id", function(req, res) {
-      routing.updateBoilerPlate(req.params.id, req.body).then(bpUpdatePut => {
-        res.json(bpUpdatePut);
-      });
+      routing
+        .updateBoilerPlate(req.params.id, req.body)
+        .then(function(updatedBp) {
+          res.json(updatedBp);
+        });
     });
     ///////////////////////////tag routes///////////////////////////////////
     //POST route for saving a new Tag
@@ -213,7 +258,13 @@ const routing = {
       routing
         .updateBoilerPlate(req.params.id, { upvotes: req.params.votes })
         .then(bpUpdatePut => {
-          res.json(bpUpdatePut);
+          return db.Boilerplate.findOne({
+            where: {
+              id: req.params.id
+            }
+          }).then(bp => {
+            res.json(bp);
+          });
         });
     });
 
@@ -221,7 +272,13 @@ const routing = {
       routing
         .updateBoilerPlate(req.params.id, { downvotes: req.params.votes })
         .then(bpUpdatePut => {
-          res.json(bpUpdatePut);
+          return db.Boilerplate.findOne({
+            where: {
+              id: req.params.id
+            }
+          }).then(bp => {
+            res.json(bp);
+          });
         });
     });
   }
