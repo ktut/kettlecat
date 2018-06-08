@@ -83,11 +83,17 @@ const appendNewBoilerplate = boilerplate => {
 
 const displayUserInfo = user => {
   if (user) {
+    console.log(user);
     $(".login")
       .empty()
       .append(`<h2 class="logged">Logged in as ${user.displayName}</h2>`);
+
+    $(".add-card").show();
+    $(".add-tag").show();
   } else {
     console.log("no user is connected");
+    $(".add-card").hide();
+    $(".add-tag").hide();
   }
 };
 
