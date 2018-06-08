@@ -88,7 +88,14 @@ const appendNewBoilerplate = boilerplate => {
   console.log(boilerplate);
   boilerplate.author = boilerplate.User.displayName;
   boilerplate.tags = boilerplate.Tags;
-  $("main").append(createBoilerplateCard(boilerplate));
+  let cardToAdd = createBoilerplateCard(boilerplate);
+  $("main").append(cardToAdd);
+  cardToAdd
+    .find(".tag")
+    .css(
+      "background-color",
+      `#${boilerplate.Tags[0] ? boilerplate.Tags[0].color : 666}`
+    );
 };
 
 const displayUserInfo = user => {
