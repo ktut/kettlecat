@@ -74,8 +74,8 @@ const putDownVote = function(boilerplate, cb) {
   });
 };
 
-const deleteBoilerplate = function(boilerplate, cb) {
-  const apiUrl = `/api/boilerplates/${boilerplate.id}`;
+const deleteBoilerplate = function(boilerplateId, cb) {
+  const apiUrl = `/api/boilerplates/${boilerplateId}`;
   $.ajax({
     url: apiUrl,
     type: "DELETE",
