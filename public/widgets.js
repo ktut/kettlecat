@@ -58,6 +58,14 @@ ${boilerplate.content}
   <button class="js-save-button" data-id="${boilerplate.id}">Save</button>
   <button class="js-delete-button" data-id="${boilerplate.id}">Delete</button>
 </div>
+<div class="votes">
+        <button class="thumbs-up" data-id="${
+          boilerplate.id
+        }"><i class="fas fa-thumbs-up"></i>
+        <span class="js-thumbs-up">${boilerplate.upvotes}</span></button>
+        <i class="fas fa-thumbs-down" data-id="${boilerplate.id}"></i>
+        <span class="js-thumbs-down">${boilerplate.downvotes}</span>
+      </div>
 </div>`);
 };
 
@@ -249,6 +257,23 @@ $(document).ready(function() {
       .parent();
     deleteBoilerplate(id, result => {
       card.remove();
+    });
+  });
+
+  $(document).on("click", ".thumbs-up", function(event) {
+    console.log("isClicked");
+    let id = $(this).data("id");
+    let upvotes = parseInt(
+      $(this)
+        .parent()
+        .find(".js-thumbs-up")
+        .text()
+    );
+    putUpVote({ id: id, upvotes: upvotes }, bp => {
+      $(this)
+        .parent()
+        .find(".js-thumbs-up")
+        .text(bp.upvotes);
     });
   });
 });
