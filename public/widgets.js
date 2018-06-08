@@ -19,7 +19,8 @@ const Boilerplate = function(
   upvotes,
   downvotes,
   tags,
-  author
+  author,
+  id
 ) {
   this.title = title ? title : null;
   this.description = description ? description : null;
@@ -29,6 +30,7 @@ const Boilerplate = function(
   this.downvotes = downvotes ? downvotes : null;
   this.tags = tags ? tags : null;
   this.author = author ? author : null;
+  this.id = id ? id : null;
 };
 
 const Tag = function(title, color) {
@@ -38,7 +40,7 @@ const Tag = function(title, color) {
 
 // function that returns a Boilerplate card as a Jquery object
 const createBoilerplateCard = boilerplate => {
-  return $(`<div class="card">
+  return $(`<div class="card" data-id="${boilerplate.id}">
   <div class="top">
     <h1 class="title">${boilerplate.title}</h1>
     <p class="tag">${boilerplate.tags}</p>
@@ -46,12 +48,12 @@ const createBoilerplateCard = boilerplate => {
   <p class="author">${boilerplate.author}</p>
   <p class="desc">${boilerplate.description}</p>
   <p class="lang">${boilerplate.lang}</p>
-  <textarea class="content">
+  <textarea class="content" >
 ${boilerplate.content}
 </textarea>
 <div class="buttons">
   <button class="js-copy-button">Copy</button>
-  <button class="js-edit-button">Edit</button>
+  <button class="js-save-button" data-id="${boilerplate.id}">Save</button>
   <button class="js-delete-button">Delete</button>
 </div>
 </div>`);
@@ -69,7 +71,8 @@ const displayAllBoilerplates = boilerplates => {
       bp.upvotes,
       bp.downvotes,
       bp.tags,
-      bp.User.displayName
+      bp.User.displayName,
+      bp.id
     );
     $("main").append(createBoilerplateCard(bpUiFormatted));
   }
@@ -192,6 +195,25 @@ $(document).ready(function() {
 
     postTag(tagToPost, data => {
       console.log(data);
+    });
+  });
+
+  $(document).on("click", ".js-save-button", function(event) {
+    let id = $(event.target).data("id");
+    let newContent = $(`[data-id="${id}"] .content`).val();
+    let boilerplateToPut = new Boilerplate(
+      null,
+      null,
+      null,
+      newContent,
+      null,
+      null,
+      null,
+      null,
+      id
+    );
+    putBoilerplate(boilerplateToPut, result => {
+      console.log(result);
     });
   });
 });

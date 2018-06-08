@@ -40,11 +40,7 @@ const putBoilerplate = function(boilerplate, cb) {
     url: apiUrl,
     type: "PUT",
     data: {
-      title: boilerplate.title,
-      description: boilerplate.description,
-      lang: boilerplate.lang,
       content: boilerplate.content,
-      tags: boilerplates.tags
     },
     success: function(result) {
       cb(result);

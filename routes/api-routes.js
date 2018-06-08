@@ -91,11 +91,11 @@ const routing = {
   // update boilerplate
   updateBoilerPlate: (id, updatedContent) => {
     return db.Boilerplate.update(updatedContent, {
+      returning: true,
+      plain: true,
       where: {
         id: id
       }
-    }).then(bpUpdate => {
-      return bpUpdate;
     });
   },
   //delete Boilerplate
@@ -202,9 +202,11 @@ const routing = {
     });
     //PUT route for updating Boilerplates
     app.put("/api/boilerplates/:id", function(req, res) {
-      routing.updateBoilerPlate(req.params.id, req.body).then(bpUpdatePut => {
-        res.json(bpUpdatePut);
-      });
+      routing
+        .updateBoilerPlate(req.params.id, req.body)
+        .then(function(updatedBp) {
+          res.json(updatedBp);
+        });
     });
     ///////////////////////////tag routes///////////////////////////////////
     //POST route for saving a new Tag
