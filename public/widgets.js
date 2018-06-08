@@ -137,8 +137,14 @@ $(document).ready(function() {
   //$('.modal').modal('hide');
 
   $(".add-card").click(function() {
-    console.log(" is clicked");
-    modal.style.display = "block";
+    let options = "";
+    getAllTags(data => {
+      for (tag of data) {
+        options = options.concat(`<option value="tag1">${tag.title}</option>`);
+      }
+      $("#tag-select").append($(options));
+      modal.style.display = "block";
+    });
   });
 
   $(".close").click(function() {
@@ -164,6 +170,7 @@ $(document).ready(function() {
     const description = $("#description").val();
     const lang = $("#lang").val();
     const content = $("#content").val();
+    // const tag = $("")
 
     // create a Boilerplate
     const boilerplateToPost = new Boilerplate(
@@ -200,6 +207,7 @@ $(document).ready(function() {
     });
   });
 
+  // edit a Boilerplate
   $(document).on("click", ".js-save-button", function(event) {
     let id = $(event.target).data("id");
     let newContent = $(`[data-id="${id}"] .content`).val();
@@ -219,6 +227,7 @@ $(document).ready(function() {
     });
   });
 
+  // delete a Boilerplate
   $(document).on("click", ".js-delete-button", function(event) {
     let id = $(event.target).data("id");
     let card = $(event.target)
@@ -229,8 +238,10 @@ $(document).ready(function() {
     });
   });
 });
+
 let modal = document.getElementById("bpModal");
 let tagModal = document.getElementById("tagModal");
+
 // make cards active when selected
 $(document).on("click", "div.card", function() {
   if (!$(this).hasClass("active")) {
@@ -253,7 +264,7 @@ let filterResults = function() {
 };
 $(".js-filter").keyup(_.debounce(filterResults, 500));
 
-//
+// copy text from a Boilerplate
 $(".js-copy-button").click(function() {
   var copyText = $(this).siblings("textarea.content");
   copyText.focus();
