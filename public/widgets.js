@@ -45,7 +45,7 @@ const createBoilerplateCard = boilerplate => {
   }">
   <div class="top">
     <h1 class="title">${boilerplate.title}</h1>
-    <p class="tag">${boilerplate.tags}</p>
+    <p class="tag">${boilerplate.tags[0] ? boilerplate.tags[0].title : ""}</p>
   </div>
   <p class="author">${boilerplate.author}</p>
   <p class="desc">${boilerplate.description}</p>
@@ -72,17 +72,22 @@ const displayAllBoilerplates = boilerplates => {
       bp.content,
       bp.upvotes,
       bp.downvotes,
-      bp.tags,
+      bp.Tags,
       bp.User.displayName,
       bp.id
     );
-    $("main").append(createBoilerplateCard(bpUiFormatted));
+    let cardToAdd = createBoilerplateCard(bpUiFormatted);
+    $("main").append(cardToAdd);
+    cardToAdd
+      .find(".tag")
+      .css("background-color", `#${bp.Tags[0] ? bp.Tags[0].color : 666}`);
   }
 };
 
 const appendNewBoilerplate = boilerplate => {
+  console.log(boilerplate);
   boilerplate.author = boilerplate.User.displayName;
-  boilerplate.tags = "A Tag";
+  boilerplate.tags = boilerplate.Tags;
   $("main").append(createBoilerplateCard(boilerplate));
 };
 
@@ -140,7 +145,9 @@ $(document).ready(function() {
     let options = "";
     getAllTags(data => {
       for (tag of data) {
-        options = options.concat(`<option value="tag1">${tag.title}</option>`);
+        options = options.concat(
+          `<option value="${tag.id}">${tag.title}</option>`
+        );
       }
       $("#tag-select").append($(options));
       modal.style.display = "block";
@@ -170,7 +177,7 @@ $(document).ready(function() {
     const description = $("#description").val();
     const lang = $("#lang").val();
     const content = $("#content").val();
-    // const tag = $("")
+    const tag = $("#tag-select").val();
 
     // create a Boilerplate
     const boilerplateToPost = new Boilerplate(
@@ -180,7 +187,7 @@ $(document).ready(function() {
       content,
       null,
       null,
-      null,
+      [tag],
       null
     );
 

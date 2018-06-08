@@ -62,9 +62,22 @@ const routing = {
         UserId: userId,
         upvotes: 0,
         downvotes: 0
-      }).then(boilerplate => {
-        boilerplate.addTag(tags);
-      });
+      })
+        .then(boilerplate => {
+          return boilerplate.addTag(tags);
+        })
+        .then(boilerplateTag => {
+          console.log(JSON.stringify(boilerplateTag));
+          return db.Boilerplate.findOne({
+            where: {
+              id: boilerplateTag[0][0].BoilerplateId
+            },
+            include: [{ model: db.User }, { model: db.Tag }]
+          });
+        })
+        .then(boilerplateComplete => {
+          res.json(boilerplateComplete);
+        });
     } else {
       return db.Boilerplate.create({
         title: title,
