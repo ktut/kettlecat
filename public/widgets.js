@@ -63,8 +63,10 @@ ${boilerplate.content}
           boilerplate.id
         }"><i class="fas fa-thumbs-up"></i>
         <span class="js-thumbs-up">${boilerplate.upvotes}</span></button>
-        <i class="fas fa-thumbs-down" data-id="${boilerplate.id}"></i>
-        <span class="js-thumbs-down">${boilerplate.downvotes}</span>
+        <button class="thumbs-down" data-id="${
+          boilerplate.id
+        }"><i class="fas fa-thumbs-down" data-id="${boilerplate.id}"></i>
+        <span class="js-thumbs-down">${boilerplate.downvotes}</span></button>
       </div>
 </div>`);
 };
@@ -274,6 +276,23 @@ $(document).ready(function() {
         .parent()
         .find(".js-thumbs-up")
         .text(bp.upvotes);
+    });
+  });
+
+  $(document).on("click", ".thumbs-down", function(event) {
+    console.log("isClicked");
+    let id = $(this).data("id");
+    let downvotes = parseInt(
+      $(this)
+        .parent()
+        .find(".js-thumbs-down")
+        .text()
+    );
+    putDownVote({ id: id, downvotes: downvotes }, bp => {
+      $(this)
+        .parent()
+        .find(".js-thumbs-down")
+        .text(bp.downvotes);
     });
   });
 });

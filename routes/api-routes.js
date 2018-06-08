@@ -272,7 +272,13 @@ const routing = {
       routing
         .updateBoilerPlate(req.params.id, { downvotes: req.params.votes })
         .then(bpUpdatePut => {
-          res.json(bpUpdatePut);
+          return db.Boilerplate.findOne({
+            where: {
+              id: req.params.id
+            }
+          }).then(bp => {
+            res.json(bp);
+          });
         });
     });
   }
