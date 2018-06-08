@@ -10,6 +10,7 @@ let state = {
   view: VIEWS.MAIN
 };
 
+$('.js-save-button').hide();
 // constructor for boilerplate, every field is always defined even if empty (null)
 const Boilerplate = function(
   title,
@@ -52,6 +53,7 @@ const createBoilerplateCard = boilerplate => {
   <div class="buttons">
     <button class="js-copy-button">Copy</button>
     <button class="js-edit-button">Edit</button>
+    <button class="js-save-button">Save</button>
     <button class="js-delete-button">Delete</button>
   </div>
   </div>`);
@@ -145,6 +147,24 @@ $(document).ready(function() {
   });
 
   $(document).on("click", '.js-edit-button', function(){
-    
-  })
+    $(".content").removeAttr("readonly");
+    $('.js-save-button').show();
+
+  });
+
+  $(document).on("click", '.js-save-button', function(){
+    event.preventDefault();
+    //console.log($(this).parent().parent().("id"));
+    console.log($(this).data("bp"));
+  
+    let updateContent = $('.content').val();
+    let updateId = $(".content").parent();
+    console.log(updateContent);
+    console.log(updateId);
+
+    putBoilerplate(updateContent, data => {
+      console.log(data)
+    })
+   // console.log($(this).parent().parent().children().data());
+  });
 });

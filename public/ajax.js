@@ -31,7 +31,7 @@ const putBoilerplate = function(boilerplate, cb) {
       description: boilerplate.description,
       lang: boilerplate.lang,
       content: boilerplate.content,
-      tags: boilerplates.tags
+      tags: boilerplate.tags
     },
     success: function(result) {
       cb(result);
