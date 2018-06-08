@@ -40,7 +40,9 @@ const Tag = function(title, color) {
 
 // function that returns a Boilerplate card as a Jquery object
 const createBoilerplateCard = boilerplate => {
-  return $(`<div class="card" data-id="${boilerplate.id} data-cardid="${boilderplate.id}">
+  return $(`<div class="card" data-id="${boilerplate.id} data-cardid="${
+    boilerplate.id
+  }">
   <div class="top">
     <h1 class="title">${boilerplate.title}</h1>
     <p class="tag">${boilerplate.tags}</p>
@@ -219,10 +221,13 @@ $(document).ready(function() {
 
   $(document).on("click", ".js-delete-button", function(event) {
     let id = $(event.target).data("id");
+    let card = $(event.target)
+      .parent()
+      .parent();
     deleteBoilerplate(id, result => {
-      console.log(result);
-    })
-  })
+      card.remove();
+    });
+  });
 });
 let modal = document.getElementById("bpModal");
 let tagModal = document.getElementById("tagModal");
