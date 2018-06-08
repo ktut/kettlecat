@@ -3,8 +3,8 @@ var GitHubStrategy = require("passport-github2").Strategy;
 var session = require("express-session");
 var db = require("../models");
 
-var GITHUB_CLIENT_ID = "5fbaf76f0a739df8245f";
-var GITHUB_CLIENT_SECRET = "3b726ea7b86230e1b5bdc0c95c37a5119e2dbed2";
+var GITHUB_CLIENT_ID = "ef59cc7ddd7d99be9314";
+var GITHUB_CLIENT_SECRET = "426c0950e5ee1d03c7dbacce4a4c04b5da00ebb2";
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -36,7 +36,7 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: "http://127.0.0.1:8080/auth/github/callback"
+      callbackURL: "https://kettlecat.herokuapp.com/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       // asynchronous verification, for effect...
