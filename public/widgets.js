@@ -234,7 +234,11 @@ $(document).ready(function() {
   // edit a Boilerplate
   $(document).on("click", ".js-save-button", function(event) {
     let id = $(event.target).data("id");
-    let newContent = $(`[data-id="${id}"] .content`).val();
+    let newContent = $(event.target)
+      .parent()
+      .parent()
+      .find(".content")
+      .val();
     let boilerplateToPut = new Boilerplate(
       null,
       null,
