@@ -3,7 +3,7 @@ div.modal,
     display: none;
     flex-direction: column;
     justify-content: center;
-
+    
     padding-top: calc(15px + 10vw);
     padding-left: 20px;
     padding-right: 20px;
@@ -25,6 +25,7 @@ div.modal-content {
     margin: 0 auto;
     background: #333;
     color: #ddd;
+    bottom: 100px;
 }
 
 div.modal-content h1 {
